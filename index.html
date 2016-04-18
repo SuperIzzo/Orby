@@ -18,7 +18,7 @@
         }
     </script>
     
-    <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" onresize="resize_canvas()" height="500px" width="800px"></canvas>
+    <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" onload="resize_canvas();" onresize="resize_canvas();" height="500px" width="800px"></canvas>
     <script type='text/javascript'>
   var Module = {
     TOTAL_MEMORY: 268435456,
