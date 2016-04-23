@@ -32,7 +32,7 @@ public class Star : MonoBehaviour
         {
             SFXUtility.PlaySFX( pickupSFX );
             Score.stars++;
-            Destroy( gameObject );
+            Destroy( transform.parent.gameObject );
         }
     }
 }

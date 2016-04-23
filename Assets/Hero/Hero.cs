@@ -8,14 +8,14 @@ public class Hero : Entity
     float charSpeed = 5;
 
     [SerializeField]
-    float jumpPower = 6;    
-    
+    float jumpPower = 8;
+
+    [SerializeField]
+    float jumpDuration = 1;
 
     [SerializeField]
     GameObject orb;   
     
-
-    float speed = 0;
     
     bool jumpButtonDown;
     bool orbed = false;
@@ -31,7 +31,8 @@ public class Hero : Entity
     private float shifting;
     private float unshifting = 1;
     private float orbRadius = 0.4f;
-    
+
+    private float jumpTimer;
 
 
 
@@ -106,13 +107,27 @@ public class Hero : Entity
             if( jumpButtonDown )
             {
                 jumpButtonDown = false;
+                jumpTimer = jumpDuration;
                 velocity.y += jumpPower;
                 PlayJumpSound();
             }
         }
+        else
+        {
+            if( jumpTimer > 0 )
+            {
+                jumpTimer -= Time.fixedDeltaTime;
+
+                if( Input.GetButton( "Jump" ) )
+                {
+                    velocity.y += 3 * jumpPower * Time.fixedDeltaTime;
+                }
+            }
+        }
 
         float move = Input.GetAxis( "Horizontal" );
-        speed = Mathf.Abs( move );
+
+
 
         if( move > 0 )
             direction = Direction.Right;
@@ -122,7 +137,7 @@ public class Hero : Entity
         velocity.x = move * charSpeed;
         rigidBody2D.velocity = velocity;
 
-        animator.SetFloat( "speed", speed );
+        animator.SetFloat( "speed", Mathf.Abs( move ) );
         animator.SetBool( "grounded", grounded );
         animator.SetFloat( "v_speed", velocity.y );
     }

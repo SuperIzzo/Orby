@@ -20,7 +20,16 @@ public class Entity : MonoBehaviour
                 transform.position.x,
                 transform.position.y - groundY );
 
-            return Physics2D.OverlapCircle( groundPoint, 0.1f, groundLayerMask );
+            Collider2D[] colliders  = 
+                Physics2D.OverlapCircleAll( groundPoint, 0.1f, groundLayerMask );
+            
+            foreach( Collider2D coll in colliders )
+            {
+                if( coll.gameObject != gameObject )
+                    return true;
+            }
+
+            return false;
         }
     }
 

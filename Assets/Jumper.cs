@@ -35,11 +35,11 @@ public class Jumper : Entity
             {
                 squashed = true;
                 coll.gameObject.GetComponent<Rigidbody2D>().velocity += new Vector2( 0, 15 );
-                coll.gameObject.GetComponent<Hero>().Land();
-                //boxCollider.enabled = false;
-            }
+                Hero hero = coll.gameObject.GetComponent<Hero>();
 
-            //coll.gameObject.SendMessage( "ApplyDamage", 10 );
+                if( hero )
+                    hero.Land();                
+            }
         }
         else
         {            
